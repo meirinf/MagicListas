@@ -10,7 +10,7 @@
     android:text="TextView"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:id="@+id/tvPeli"
+    android:id="@+id/Cartas"
     android:layout_marginStart="8dp"
     app:layout_constraintLeft_toLeftOf="parent"
     android:layout_marginLeft="8dp"
