@@ -14,7 +14,7 @@ public class Carta {
 
         private ArrayList<String> castList;
 
-        public Carta (){
+        public Carta(String nombreCarta){
 
         }
         public String getNombre() {

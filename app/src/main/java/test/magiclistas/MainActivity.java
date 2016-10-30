@@ -1,13 +1,15 @@
 package test.magiclistas;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.os.AsyncTask;
+
+import java.util.ArrayList;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -29,16 +31,28 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (item.getItemId() == R.id.Refresh) {
+            refresh();
             return true;
         }
 
         return super.onOptionsItemSelected(item);
+
+    }
+    public void refresh() {
+        RefreshAsyncTask refreshAsyncTask = new RefreshAsyncTask();
+        refreshAsyncTask.execute();
+    }
+
+    class RefreshAsyncTask extends AsyncTask<Void, Void, ArrayList<Carta>> {
+        @Override
+        //Trabaja con el Objeto Carta en segundo plano
+        protected ArrayList<Carta> doInBackground(Void... voids) {
+            ApiCartas api = new ApiCartas();
+            ArrayList<Carta> cards = api.getCartas();
+            return cards;
+        }
     }
 }

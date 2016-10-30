@@ -10,6 +10,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.support.design.widget.Snackbar;
+
+import org.jetbrains.annotations.Nullable;
+
+import static android.R.attr.id;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -21,6 +26,12 @@ public class MainActivityFragment extends Fragment {
     public MainActivityFragment() {
 
 
+    }
+    //agregamos el menu en el fragment
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
     }
 
     @Override
@@ -49,11 +60,23 @@ public class MainActivityFragment extends Fragment {
         Cartas.setAdapter(adapter);
         return view;
     }
-    //creamos el inflate
+    //creamos el inflate del menu
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.menu_main, menu);
 
         }
+    //Configuramos la opción refresh del menu
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+               if(item.getItemId()==R.id.Refresh){
+                     refresh();
+                   return true;
+               }
+              return super.onOptionsItemSelected(item);
+         }
+    private void refresh() {
+        Snackbar.make(getView(),"Se esta refrescando",Snackbar.LENGTH_LONG).show();
+    }
 
     }
