@@ -11,13 +11,10 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.support.design.widget.Snackbar;
-
-import org.jetbrains.annotations.Nullable;
-
-import static android.R.attr.id;
-
 import java.util.ArrayList;
 import java.util.Arrays;
+
+import org.jetbrains.annotations.Nullable;
 
 public class MainActivityFragment extends Fragment {
 
@@ -76,7 +73,24 @@ public class MainActivityFragment extends Fragment {
               return super.onOptionsItemSelected(item);
          }
     private void refresh() {
-        Snackbar.make(getView(),"Se esta refrescando",Snackbar.LENGTH_LONG).show();
+        RefreshAsyncTask refreshAsyncTask = new RefreshAsyncTask();
+        refreshAsyncTask.execute();
     }
 
+    class RefreshAsyncTask extends AsyncTask<Void, Void, ArrayList<Carta>> {
+        @Override
+        protected ArrayList<Carta>doInBackground(Void... voids) {
+            ApiCartas api = new ApiCartas();
+            ArrayList<Carta> cards = api.getCartas();
+            return cards;
+        }
+        @Override
+        protected void onPostExecute(ArrayList<Carta> cards) {
+            adapter.clear();
+            for (int i = 0; i < cards.size(); ++i) {
+                adapter.add(cards.get(i).getNombre());
+            }
+        }
     }
+
+}
