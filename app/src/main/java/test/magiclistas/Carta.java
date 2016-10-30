@@ -54,9 +54,8 @@ public class Carta {
 
         @Override
         public String toString() {
-            return "Cart {" +
-                    "Nom='" + nombre + '\'' +
-                    ", Tipus=" +  tipo +
-                    ", Image='" + imagen + '\'' + '}';
+            return "Carta{"+"titulo="+nombre+"}";
+                   // ", Tipus=" +  tipo +
+                   // ", Image='" + imagen + '\'' + '}';
         }
 }
