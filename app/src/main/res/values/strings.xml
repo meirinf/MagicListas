@@ -61,6 +61,16 @@
         <item>3</item>
     </string-array>
 
+    <string-array name="categoriaComun">
+        <item>Common</item>
+        <item>Uncommon</item>
+        <item>Rare</item>
+        <item>Mythic Rare</item>
+        <item>Special</item>
+        <item>Basic Land</item>
+    </string-array>
+
+
     <string-array name="multi_select_list_preference_default_value" />
 
     <string name="pref_title_system_sync_settings">System sync settings</string>
