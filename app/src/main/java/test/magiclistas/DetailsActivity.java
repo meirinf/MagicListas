@@ -52,7 +52,7 @@ public class DetailsActivity extends AppCompatActivity {
                         load(carta.getImagen()).
                         into(imagen);
 
-                toolbar.setTitle(carta.getNombre());
+                getSupportActionBar().setTitle(carta.getNombre());
             }
         }
         else{
