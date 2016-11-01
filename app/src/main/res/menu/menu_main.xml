@@ -2,9 +2,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="test.magiclistas.MainActivity">
+
     <item
         android:id="@+id/Refresh"
         android:orderInCategory="100"
         android:title="Refresh"
         app:showAsAction="never" />
+
+    <item
+        android:id="@+id/Config"
+        android:orderInCategory="100"
+        android:title="Configuracion"
+        app:showAsAction="never" />
+
 </menu>

@@ -1,4 +1,5 @@
 package test.magiclistas;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -17,6 +18,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import org.jetbrains.annotations.Nullable;
+
+import test.magiclistas.Configracion.ConfigActivity;
 
 public class MainActivityFragment extends Fragment {
 
@@ -74,6 +77,11 @@ public class MainActivityFragment extends Fragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.Refresh) {
             refresh();
+            return true;
+        }
+        else if(item.getItemId() == R.id.Config){
+            Intent a = new Intent(getContext(), ConfigActivity.class);
+            startActivity(a);
             return true;
         }
         return super.onOptionsItemSelected(item);
