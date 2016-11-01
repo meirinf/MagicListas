@@ -39,6 +39,13 @@ public class MainActivityFragment extends Fragment {
     }
 
     @Override
+    public void onStart() {
+        super.onStart();
+
+        refresh();
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_main, container, false);
 
@@ -111,10 +118,11 @@ public class MainActivityFragment extends Fragment {
 
             SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getContext());
             String filtroComun = pref.getString("categoriaCarta", "");
+            String filtroColor = pref.getString("colorCarta", "");
 
             for (int i = 0; i < cards.size(); ++i) {
                 if(cards.get(i).getTipo().equals(filtroComun)){
-                    adapter.add(cards.get(i).getNombre() + " - " + cards.get(i).getTipo());
+                    adapter.add(cards.get(i).getNombre() + " - " + cards.get(i).getTipo() + " - " + cards.get(i).getColor());
                 }
             }
 

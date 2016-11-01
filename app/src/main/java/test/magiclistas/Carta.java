@@ -1,22 +1,23 @@
 package test.magiclistas;
 
+import java.util.ArrayList;
+
 /**
  * Created by mireia on 30/10/16.
  */
-import android.text.TextUtils;
-import java.util.ArrayList;
-
 public class Carta {
 
     String nombre;
     String tipo;
     String imagen;
+    String color;
 
     private ArrayList<String> castList;
 
-    public Carta(String nombre, String tipo){
+    public Carta(String nombre, String tipo, String color){
         this.nombre = nombre;
         this.tipo = tipo;
+        this.color = color;
     }
 
     // Getters
@@ -37,6 +38,9 @@ public class Carta {
         return castList;
     }
 
+    public String getColor() {
+        return color;
+    }
 
     // Setters
 
@@ -54,6 +58,10 @@ public class Carta {
 
     public void setCastList(ArrayList<String> castList) {
         this.castList = castList;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
     }
 
     // ToString

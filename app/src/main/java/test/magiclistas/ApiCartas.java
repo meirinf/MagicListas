@@ -7,6 +7,8 @@ import java.util.ArrayList;
  */
 
 import android.net.Uri;
+import android.util.Log;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -28,14 +30,16 @@ public class ApiCartas {
 
             String nombreCarta;
             String tipoCarta;
+            String color = "";
 
             for (int i = 0; i < jsonNombre.length(); ++i) {
 
                 JSONObject object = jsonNombre.getJSONObject(i);
+
                 nombreCarta = object.getString("name");
                 tipoCarta = object.getString("rarity");
 
-                Carta carta = new Carta(nombreCarta, tipoCarta);
+                Carta carta = new Carta(nombreCarta, tipoCarta, color);
                 lista.add(carta);
             }
 
