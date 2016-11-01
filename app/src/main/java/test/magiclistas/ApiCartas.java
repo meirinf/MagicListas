@@ -14,20 +14,28 @@ import java.io.IOException;
 
 
 public class ApiCartas {
-    private  String url= "https://api.magicthegathering.io/v1/cards?pageSize=100";
+
+    private  String url = "https://api.magicthegathering.io/v1/cards?pageSize=100";
 
     public ArrayList<Carta> getCartas() {
 
         ArrayList<Carta> lista = new ArrayList<>();
+
         try {
             String JsonResponse = HttpUtils.get(url);
             JSONObject json = new JSONObject(JsonResponse);
-            JSONArray jsoncartas = json.getJSONArray("cards");
-            String titulo;
-            for (int i = 0; i < jsoncartas.length(); ++i) {
-                JSONObject object = jsoncartas.getJSONObject(i);
-                titulo = object.getString("name");
-                Carta carta=new Carta(titulo);
+            JSONArray jsonNombre = json.getJSONArray("cards");
+
+            String nombreCarta;
+            String tipoCarta;
+
+            for (int i = 0; i < jsonNombre.length(); ++i) {
+
+                JSONObject object = jsonNombre.getJSONObject(i);
+                nombreCarta = object.getString("name");
+                tipoCarta = object.getString("rarity");
+
+                Carta carta = new Carta(nombreCarta, tipoCarta);
                 lista.add(carta);
             }
 

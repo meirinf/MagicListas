@@ -1,8 +1,11 @@
 package test.magiclistas;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -105,8 +108,14 @@ public class MainActivityFragment extends Fragment {
         protected void onPostExecute(ArrayList<Carta> cards) {
 
             adapter.clear();
+
+            SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getContext());
+            String filtroComun = pref.getString("categoriaCarta", "");
+
             for (int i = 0; i < cards.size(); ++i) {
-                adapter.add(cards.get(i).getNombre());
+                if(cards.get(i).getTipo().equals(filtroComun)){
+                    adapter.add(cards.get(i).getNombre() + " - " + cards.get(i).getTipo());
+                }
             }
 
             Toast.makeText(getContext(), "Se han cargado " + cards.size() + " cartas.", Toast.LENGTH_SHORT).show();

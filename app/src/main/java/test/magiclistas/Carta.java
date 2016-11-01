@@ -14,8 +14,9 @@ public class Carta {
 
     private ArrayList<String> castList;
 
-    public Carta(String nombre){
+    public Carta(String nombre, String tipo){
         this.nombre = nombre;
+        this.tipo = tipo;
     }
 
     // Getters
