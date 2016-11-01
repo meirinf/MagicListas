@@ -1,4 +1,4 @@
-package test.magiclistas;
+package test.magiclistas.API;
 
 import java.util.ArrayList;
 
@@ -6,13 +6,13 @@ import java.util.ArrayList;
  * Created by mireia on 30/10/16.
  */
 
-import android.net.Uri;
-import android.util.Log;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.io.IOException;
+
+import test.magiclistas.API.HttpUtils;
+import test.magiclistas.Carta;
 
 
 public class ApiCartas {

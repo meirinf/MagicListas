@@ -19,6 +19,7 @@ import java.util.List;
 
 import org.jetbrains.annotations.Nullable;
 
+import test.magiclistas.API.ApiCartas;
 import test.magiclistas.Configracion.ConfigActivity;
 
 public class MainActivityFragment extends Fragment {

@@ -1,4 +1,4 @@
-package test.magiclistas;
+package test.magiclistas.API;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
