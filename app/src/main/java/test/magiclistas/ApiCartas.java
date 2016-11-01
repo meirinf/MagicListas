@@ -32,6 +32,7 @@ public class ApiCartas {
             String tipoCarta;
             String color = "";
             String imagen;
+            String texto;
 
             for (int i = 0; i < jsonNombre.length(); ++i) {
 
@@ -40,8 +41,9 @@ public class ApiCartas {
                 nombreCarta = object.getString("name");
                 tipoCarta = object.getString("rarity");
                 imagen = object.getString("imageUrl");
+                texto = object.getString("text");
 
-                Carta carta = new Carta(nombreCarta, tipoCarta, color, imagen);
+                Carta carta = new Carta(nombreCarta, tipoCarta, color, imagen, texto);
                 lista.add(carta);
             }
 

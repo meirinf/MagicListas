@@ -11,6 +11,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 import java.util.ArrayList;
@@ -48,8 +49,16 @@ public class MainActivityFragment extends Fragment {
         cartas = (ListView) view.findViewById(R.id.Cartas);
         items = new ArrayList<>();
         adapter = new CartasAdapter(getContext(), 0, items);
-
         cartas.setAdapter(adapter);
+
+        // Al pulsar en una posicion del listView se ejecuta el onClick
+        cartas.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent details = new Intent(getContext(), DetailsActivity.class);
+                details.putExtra("carta", items.get(position));
+                startActivity(details);
+            }
+        });
 
         return view;
     }
