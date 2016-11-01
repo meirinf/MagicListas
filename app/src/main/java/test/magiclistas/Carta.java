@@ -9,15 +9,16 @@ public class Carta {
 
     String nombre;
     String tipo;
-    String imagen;
     String color;
+    String imagen;
 
     private ArrayList<String> castList;
 
-    public Carta(String nombre, String tipo, String color){
+    public Carta(String nombre, String tipo, String color, String imagen){
         this.nombre = nombre;
         this.tipo = tipo;
         this.color = color;
+        this.imagen = imagen;
     }
 
     // Getters

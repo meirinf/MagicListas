@@ -5,20 +5,16 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.support.design.widget.Snackbar;
 import android.widget.Toast;
-
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.List;
 
 import org.jetbrains.annotations.Nullable;
 
@@ -26,8 +22,9 @@ import test.magiclistas.Configracion.ConfigActivity;
 
 public class MainActivityFragment extends Fragment {
 
-    private ArrayList<String> items;
-    private ArrayAdapter<String> adapter;
+    private List<Carta> items;
+    private CartasAdapter adapter;
+    private ListView cartas;
 
     public MainActivityFragment() {}
 
@@ -41,7 +38,6 @@ public class MainActivityFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-
         refresh();
     }
 
@@ -49,27 +45,9 @@ public class MainActivityFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_main, container, false);
 
-        ListView cartas = (ListView) view.findViewById(R.id.Cartas);
-
-        //Creamos probisionalmente un Array de Strings
-        String[] data = {
-                "Mir de plata",
-                "Acelerador del laberinto",
-                "Afán",
-                "Animista salvaje",
-                "Azotacielos",
-                "Baron sangriento de vizkopa",
-                "Behemot del laberinto."
-        };
-
-        //Añadimos los Strings a una array dinamica
-        items = new ArrayList<>(Arrays.asList(data));
-        adapter = new ArrayAdapter<>(
-                getContext(),
-                R.layout.layoutcartasrow,
-                R.id.Cartas,
-                items
-        );
+        cartas = (ListView) view.findViewById(R.id.Cartas);
+        items = new ArrayList<>();
+        adapter = new CartasAdapter(getContext(), 0, items);
 
         cartas.setAdapter(adapter);
 
@@ -85,6 +63,7 @@ public class MainActivityFragment extends Fragment {
     //Configuramos la opción refresh del menu
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+
         if (item.getItemId() == R.id.Refresh) {
             refresh();
             return true;
@@ -122,9 +101,12 @@ public class MainActivityFragment extends Fragment {
 
             for (int i = 0; i < cards.size(); ++i) {
                 if(cards.get(i).getTipo().equals(filtroComun)){
-                    adapter.add(cards.get(i).getNombre() + " - " + cards.get(i).getTipo() + " - " + cards.get(i).getColor());
+                    adapter.add(cards.get(i));
                 }
             }
+
+            // Despues de actualizar los datos movemos el listView hacia arriba
+            cartas.smoothScrollToPosition(0);
 
             Toast.makeText(getContext(), "Se han cargado " + cards.size() + " cartas.", Toast.LENGTH_SHORT).show();
 
