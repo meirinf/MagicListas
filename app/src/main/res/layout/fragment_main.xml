@@ -8,8 +8,8 @@
     tools:context="test.magiclistas.MainActivityFragment"
     tools:showIn="@layout/activity_main" >
 
-
     <ListView
+        android:paddingLeft="15dp"
         android:layout_width="384dp"
         android:layout_height="455dp"
         android:id="@+id/Cartas"

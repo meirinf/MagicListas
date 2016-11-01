@@ -8,54 +8,59 @@ import java.util.ArrayList;
 
 public class Carta {
 
-        String nombre;
-        String tipo;
-        String imagen;
+    String nombre;
+    String tipo;
+    String imagen;
 
-        private ArrayList<String> castList;
+    private ArrayList<String> castList;
 
-        public Carta(String nombreCarta){
+    public Carta(String nombre){
+        this.nombre = nombre;
+    }
 
-        }
-        public String getNombre() {
-            return nombre;
-        }
+    // Getters
 
-        public String getTipo() {
-            return tipo;
-        }
+    public String getNombre() {
+        return nombre;
+    }
 
-        public String getImagen() {
-            return imagen;
-        }
+    public String getTipo() {
+        return tipo;
+    }
 
+    public String getImagen() {
+        return imagen;
+    }
 
-        public void setNombre(String nombre) {
-            nombre = nombre;
-        }
-
-
-        public void setTipo(String tipo) {
-            tipo = tipo;
-        }
-
-        public void setImagen(String imagen) {
-            imagen = imagen;
-        }
-
-        public ArrayList<String> getCastList() {
-            return castList;
-        }
+    public ArrayList<String> getCastList() {
+        return castList;
+    }
 
 
-        public void setCastList(ArrayList<String> castList) {
-            this.castList = castList;
-        }
+    // Setters
 
-        @Override
-        public String toString() {
-            return "Carta{"+"titulo="+nombre+"}";
-                   // ", Tipus=" +  tipo +
-                   // ", Image='" + imagen + '\'' + '}';
-        }
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+
+    public void setImagen(String imagen) {
+        this.imagen = imagen;
+    }
+
+    public void setCastList(ArrayList<String> castList) {
+        this.castList = castList;
+    }
+
+    // ToString
+
+    @Override
+    public String toString() {
+        return "Carta{"+"titulo="+nombre+"}";
+        // ", Tipus=" +  tipo +
+        // ", Image='" + imagen + '\'' + '}';
+    }
 }
