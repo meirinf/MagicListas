@@ -96,11 +96,12 @@ public class MainActivityFragment extends Fragment {
     class RefreshAsyncTask extends AsyncTask<Void, Void, ArrayList<Carta>> {
 
         @Override
-        protected ArrayList<Carta>doInBackground(Void... voids) {
+        protected ArrayList<Carta> doInBackground(Void... voids) {
             ApiCartas api = new ApiCartas();
             ArrayList<Carta> cards = api.getCartas();
             return cards;
         }
+
         //CLase que sirve para aplicar los ajustes
         @Override
         protected void onPostExecute(ArrayList<Carta> cards) {
@@ -113,15 +114,18 @@ public class MainActivityFragment extends Fragment {
 
 
             for (int i = 0; i < cards.size(); ++i) {
-                if (cards.get(i).getTipo().equals(filtroComun)) {
-                    adapter.add(cards.get(i));
+
+                if (!filtroColor.isEmpty() && !filtroComun.isEmpty()) {
+                    configGeneralTodo(cards.get(i), filtroColor,filtroComun);
                 }
-               //if(cards.get(i).getColor().equals(filtroColor)){
-                //adapter.add(cards.get(i));
-                //}
+                else if(!filtroColor.isEmpty()){
+                    configColor(cards.get(i), filtroColor);
+                }
+                else {
+                    configGeneral(cards.get(i),filtroComun);
+                }
 
             }
-
 
             // Despues de actualizar los datos movemos el listView hacia arriba
             cartas.smoothScrollToPosition(0);
@@ -129,6 +133,35 @@ public class MainActivityFragment extends Fragment {
             Toast.makeText(getContext(), "Se han cargado " + cards.size() + " cartas.", Toast.LENGTH_SHORT).show();
 
         }
-    }
 
+        public void configGeneral(Carta cards, String filtroComun) {
+            if (cards.getTipo().equals(filtroComun)) {
+                adapter.add(cards);
+            }
+        }
+
+        public void configColor(Carta cards, String filtroColor) {
+            if (cards.getColor() != null) {
+                for (int j = 0; j < cards.getColor().length; j++) {
+                    if (cards.getColor()[j].equals(filtroColor)) {
+                        adapter.add(cards);
+                    }
+                }
+            }
+        }
+
+        public void configGeneralTodo(Carta cards, String filtroColor, String filtroComun) {
+            if (cards.getColor() != null) {
+                for (int j = 0; j < cards.getColor().length; j++) {
+                    if (cards.getColor()[j].equalsIgnoreCase(filtroColor)) {
+                        if (cards.getTipo().equalsIgnoreCase(filtroComun)) {
+                            adapter.add(cards);
+                        }
+                    }
+                }
+            }
+
+
+        }
+    }
 }
