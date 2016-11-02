@@ -18,6 +18,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.jetbrains.annotations.Nullable;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import test.magiclistas.API.ApiCartas;
 import test.magiclistas.Configracion.ConfigActivity;
@@ -99,7 +101,7 @@ public class MainActivityFragment extends Fragment {
             ArrayList<Carta> cards = api.getCartas();
             return cards;
         }
-
+        //CLase que sirve para aplicar los ajustes
         @Override
         protected void onPostExecute(ArrayList<Carta> cards) {
 
@@ -109,11 +111,17 @@ public class MainActivityFragment extends Fragment {
             String filtroComun = pref.getString("categoriaCarta", "");
             String filtroColor = pref.getString("colorCarta", "");
 
+
             for (int i = 0; i < cards.size(); ++i) {
-                if(cards.get(i).getTipo().equals(filtroComun)){
+                if (cards.get(i).getTipo().equals(filtroComun)) {
                     adapter.add(cards.get(i));
                 }
+               //if(cards.get(i).getColor().equals(filtroColor)){
+                //adapter.add(cards.get(i));
+                //}
+
             }
+
 
             // Despues de actualizar los datos movemos el listView hacia arriba
             cartas.smoothScrollToPosition(0);

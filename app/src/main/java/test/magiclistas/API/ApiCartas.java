@@ -1,5 +1,7 @@
 package test.magiclistas.API;
 
+import android.widget.Toast;
+
 import java.util.ArrayList;
 
 /**
@@ -38,10 +40,24 @@ public class ApiCartas {
 
                 JSONObject object = jsonNombre.getJSONObject(i);
 
+                //JSONArray ja_data = object.getJSONArray("data");
+                //int length = object .length();
+
                 nombreCarta = object.getString("name");
                 tipoCarta = object.getString("rarity");
                 imagen = object.getString("imageUrl");
                 texto = object.getString("text");
+
+               // for(int it = 0; it < length; it++) {
+                    // getting inner array Ingredients
+                    //JSONArray ja = object.getJSONArray("colors");
+                    //int len = ja.length();
+                    //for(int j=0; j<len; j++)
+                    //{
+                      //  JSONObject jeson = ja.getJSONObject(j);
+                       // color =jeson.getString("name");
+                    //}
+               // }
 
                 Carta carta = new Carta(nombreCarta, tipoCarta, color, imagen, texto);
                 lista.add(carta);
