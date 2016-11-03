@@ -19,8 +19,8 @@ import test.magiclistas.Carta;
 
 public class ApiCartas {
 
-    private  String url = "https://api.magicthegathering.io/v1/cards?pageSize=100";
-
+    private  String url = "https://api.magicthegathering.io/v1/cards";
+    //https://api.magicthegathering.io/v1/cards?pageSize=100
     public ArrayList<Carta> getCartas() {
 
         ArrayList<Carta> lista = new ArrayList<>();
@@ -32,15 +32,13 @@ public class ApiCartas {
 
             String nombreCarta;
             String tipoCarta;
-            String color = "";
+            String [] colors = null;
             String imagen = null;
             String texto = null;
 
             for (int i = 0; i < jsonNombre.length(); ++i) {
 
                 JSONObject object = jsonNombre.getJSONObject(i);
-                // JSONArray ja_data = object.getJSONArray("data");
-                // int length = object .length();
 
                 nombreCarta = object.getString("name");
                 tipoCarta = object.getString("rarity");
@@ -52,33 +50,26 @@ public class ApiCartas {
                 if (object.has("text")) {
                     texto = object.getString("text");
                 };
+                if(object.has("rarity")){
 
-                /*for(int it = 0; it < length; it++) {
-                    JSONArray ja = object.getJSONArray("colors");
-                    int len = ja.length();
-                    for(int j=0; j<len; j++)
-                    {
-                        JSONObject jeson = ja.getJSONObject(j);
-                       color =jeson.getString("name");
-                    }
-                }*/
+                }
 
                 // Si tiene color
-                String [] colors=null;
-
                 if (object.has("colors")) {
-
                     int totalColors = object.getJSONArray("colors").length();
                     colors = new String[totalColors];
 
                     for (int j = 0; j <colors.length ; j++) {
                         colors[j] = object.getJSONArray("colors").get(j).toString();
                     }
+                    Carta carta = new Carta(nombreCarta, tipoCarta, colors, imagen, texto);
+                    lista.add(carta);
                 }
-
-                Carta carta = new Carta(nombreCarta, tipoCarta, colors, imagen, texto);
-                lista.add(carta);
-            }
+                else {
+                    Carta carta = new Carta(nombreCarta, tipoCarta, colors, imagen, texto);
+                    lista.add(carta);
+                }
+        }
 
         }
 

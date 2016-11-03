@@ -29,6 +29,7 @@ public class MainActivityFragment extends Fragment {
     private List<Carta> items;
     private CartasAdapter adapter;
     private ListView cartas;
+    private boolean ok = true;
 
     public MainActivityFragment() {}
 
@@ -109,17 +110,30 @@ public class MainActivityFragment extends Fragment {
             adapter.clear();
 
             SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getContext());
+
             String filtroComun = pref.getString("categoriaCarta", "");
             String filtroColor = pref.getString("colorCarta", "");
 
 
+            //Miro que las cartas cumplan con los ajustes
             for (int i = 0; i < cards.size(); ++i) {
+                if(filtroComun.equalsIgnoreCase("Empty")){
+                    filtroComun = "";
+                }
+                if (filtroColor.equalsIgnoreCase("")||filtroColor.isEmpty()) {
+                    adapter.add(cards.get(i));
+                }
+                //Esto se encarga de que el valor introducido en color exista y no pete si no existe
+                if(filtroColor.equalsIgnoreCase("White")||filtroColor.equalsIgnoreCase("Red")||filtroColor.equalsIgnoreCase("Black")||filtroColor.equalsIgnoreCase("Blue")||filtroColor.equalsIgnoreCase("Green")){
+                    configColor(cards.get(i), filtroColor);
+                }else if(!filtroColor.isEmpty()){
+                    filtroColor="";
+                    adapter.add(cards.get(i));
+                    ok = false;
+                }
 
                 if (!filtroColor.isEmpty() && !filtroComun.isEmpty()) {
                     configGeneralTodo(cards.get(i), filtroColor,filtroComun);
-                }
-                else if(!filtroColor.isEmpty()){
-                    configColor(cards.get(i), filtroColor);
                 }
                 else {
                     configGeneral(cards.get(i),filtroComun);
@@ -130,7 +144,9 @@ public class MainActivityFragment extends Fragment {
             // Despues de actualizar los datos movemos el listView hacia arriba
             cartas.smoothScrollToPosition(0);
 
-            Toast.makeText(getContext(), "Se han cargado " + cards.size() + " cartas.", Toast.LENGTH_SHORT).show();
+            //Mostraremos el warning
+            if(ok = true){Toast.makeText(getContext(), "Se han cargado " + cards.size() + " cartas.", Toast.LENGTH_SHORT).show();}
+            if(ok = false){ Toast.makeText(getContext(), "El color introducido no exite", Toast.LENGTH_SHORT).show();}
 
         }
 
@@ -141,14 +157,12 @@ public class MainActivityFragment extends Fragment {
         }
 
         public void configColor(Carta cards, String filtroColor) {
-            if (cards.getColor() != null) {
                 for (int j = 0; j < cards.getColor().length; j++) {
                     if (cards.getColor()[j].equals(filtroColor)) {
                         adapter.add(cards);
                     }
                 }
             }
-        }
 
         public void configGeneralTodo(Carta cards, String filtroColor, String filtroComun) {
             if (cards.getColor() != null) {

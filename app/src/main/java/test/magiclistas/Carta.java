@@ -42,10 +42,6 @@ public class Carta implements Serializable {
         return castList;
     }
 
-   /* public String getColor() {
-        return color[0];
-    }*/
-
     public String[] getColor() {
         return color;
     }
