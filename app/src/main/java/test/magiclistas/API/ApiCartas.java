@@ -41,11 +41,17 @@ public class ApiCartas {
                 JSONObject object = jsonCartas.getJSONObject(i);
                 card.setNombre(object.getString("name"));
                 card.setTipo(object.getString("type"));
+                if(object.has("rarity"))
                 card.setRareza(object.getString("rarity"));
-                if(object.has("color")){
-                    card.setColor(object.getString("color"));
+                if(object.has("colors")){
+                    card.setColor(object.getString("colors"));
                 }
-                card.setImagen(object.getString("imageUrl"));
+                if (object.has("text")) {
+                    card.setTexto(object.getString("text"));
+                };
+                if (object.has("imageUrl")) {
+                    card.setImagen(object.getString("imageUrl"));
+                }
                 carta.add(card);
 
             }
@@ -65,6 +71,7 @@ public class ApiCartas {
                 .appendPath("name")
                 .appendPath("type")
                 .appendPath("rarity")
+                .appendPath("text")
                 .appendPath("color")
                 .appendPath("imageUrl")
                 .build();

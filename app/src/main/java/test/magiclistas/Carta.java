@@ -44,6 +44,10 @@ public class Carta implements Serializable {
         return color;
     }
 
+    public ArrayList<String> getCastList() {
+        return castList;
+    }
+
     public String getTexto() {
         return texto;
     }
@@ -68,6 +72,10 @@ public class Carta implements Serializable {
 
     public void setColor(String color) {
         this.color = color;
+    }
+
+    public void setCastList(ArrayList<String> castList) {
+        this.castList = castList;
     }
 
     public void setTexto(String texto) {

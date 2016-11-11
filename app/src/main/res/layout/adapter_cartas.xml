@@ -4,33 +4,14 @@
     android:layout_height="match_parent">
 
   <ImageView
+    android:id="@+id/adapterCarta"
     android:layout_marginBottom="5dp"
     android:layout_marginTop="5dp"
-    android:id="@+id/adapterCarta"
     android:layout_width="100dp"
     android:layout_height="150dp"
-      android:scaleType="fitXY"
-      android:layout_alignParentTop="true"
-      android:layout_alignParentStart="true" />
-
-  <TextView
-    android:text="TextView"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:id ="@+id/adapterNombre"
-      android:layout_alignParentTop="true"
-      android:layout_toEndOf="@+id/adapterCarta"
-      android:layout_marginStart="21dp" />
-
-  <TextView
-    android:id="@+id/adapterRareza"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:hint="The Dark Knight"
-    android:textSize="12sp"
-    android:textStyle="bold"
-      android:layout_below="@+id/adapterNombre"
-      android:layout_alignStart="@+id/adapterNombre" />
+    android:scaleType="fitXY"
+    android:layout_alignParentTop="true"
+    android:layout_alignParentStart="true" />
 
   <TextView
     android:id="@+id/adapterColor"
@@ -39,8 +20,37 @@
     android:hint="The Dark Knight"
     android:textSize="12sp"
     android:textStyle="bold"
-      android:layout_below="@+id/adapterRareza"
-      android:layout_alignStart="@+id/adapterRareza" />
+    android:layout_below="@+id/adapterRareza"
+    android:layout_alignStart="@+id/adapterRareza" />
+
+  <TextView
+    android:id="@+id/adapterTipo"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:hint="The Dark Knight"
+    android:textSize="12sp"
+    android:textStyle="bold"
+    android:layout_below="@+id/adapterNombre"
+    android:layout_alignStart="@+id/adapterNombre" />
+
+  <TextView
+    android:id="@+id/adapterRareza"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:hint="The Dark Knight"
+    android:textSize="12sp"
+    android:textStyle="bold"
+    android:layout_below="@+id/adapterTipo"
+    android:layout_alignStart="@+id/adapterTipo" />
+
+  <TextView
+    android:id ="@+id/adapterNombre"
+    android:text="TextView"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="25dp"
+    android:layout_alignParentTop="true"
+    android:layout_toEndOf="@+id/adapterCarta" />
 
 </RelativeLayout>
 
