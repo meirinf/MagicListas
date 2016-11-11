@@ -44,11 +44,11 @@ public class DetailsActivity extends AppCompatActivity {
 
             if (carta != null) {
 
-                texto.setText(carta.getTexto());
-                nombreCarta.setText(carta.getNombre());
-                rareza.setText(carta.getRareza());
-                tipo.setText(carta.getTipo());
-                color.setText(carta.getColor());
+                texto.setText("Pequeña Descripción: "+carta.getTexto());
+                nombreCarta.setText("Nombre Carta: "+carta.getNombre());
+                rareza.setText("Rareza: "+carta.getRareza());
+                tipo.setText("Tipo: "+carta.getTipo());
+                color.setText("Color: "+carta.getColor());
 
                 Glide.with(this).
                         load(carta.getImagen()).

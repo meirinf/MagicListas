@@ -37,17 +37,15 @@ public class CartasAdapter extends ArrayAdapter<Carta> {
         TextView nombreCarta = (TextView) convertView.findViewById(R.id.adapterNombre);
         TextView tipo = (TextView) convertView.findViewById(R.id.adapterTipo);
         TextView color = (TextView) convertView.findViewById(R.id.adapterColor);
-        TextView rarity = (TextView)  convertView.findViewById(R.id.adapterRareza);
         ImageView imagenCarta = (ImageView) convertView.findViewById(R.id.adapterCarta);
 
          // Fiquem les dades dels objectes (provinents del JSON) en el layout
 
-        nombreCarta.setText(carta.getNombre());
-        tipo.setText(carta.getTipo());
-        rarity.setText(carta.getTexto());
-        color.setText(carta.getColor());
+        nombreCarta.setText("Nombre Carta: "+carta.getNombre());
+        tipo.setText("Tipo: "+carta.getTipo());
+        color.setText("Color: "+carta.getColor());
 
-
+        //Imagen Carta
         Glide.with(getContext()).
                     load(carta.getImagen()).
                     into(imagenCarta);
