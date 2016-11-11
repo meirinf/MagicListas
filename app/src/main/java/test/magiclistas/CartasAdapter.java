@@ -45,12 +45,6 @@ public class CartasAdapter extends ArrayAdapter<Carta> {
         tipo.setText(carta.getTipo());
 
         String auxColor = "";
-
-        if (carta.getColor() != null) {
-            for (int i = 0; i <carta.getColor().length ; i++) {
-                auxColor += " "+carta.getColor()[i];
-            }
-        }
         color.setText(auxColor);
 
         Glide.with(getContext()).

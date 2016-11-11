@@ -5,6 +5,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -31,7 +32,8 @@ public class MainActivityFragment extends Fragment {
     private ListView cartas;
     private boolean ok = true;
 
-    public MainActivityFragment() {}
+    public MainActivityFragment() {
+    }
 
     //Agregamos el menu en el fragment
     @Override
@@ -47,7 +49,7 @@ public class MainActivityFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_main, container, false);
 
         cartas = (ListView) view.findViewById(R.id.Cartas);
@@ -80,8 +82,7 @@ public class MainActivityFragment extends Fragment {
         if (item.getItemId() == R.id.Refresh) {
             refresh();
             return true;
-        }
-        else if(item.getItemId() == R.id.Config){
+        } else if (item.getItemId() == R.id.Config) {
             Intent a = new Intent(getContext(), ConfigActivity.class);
             startActivity(a);
             return true;
@@ -99,83 +100,28 @@ public class MainActivityFragment extends Fragment {
         @Override
         protected ArrayList<Carta> doInBackground(Void... voids) {
             ApiCartas api = new ApiCartas();
-            ArrayList<Carta> cards = api.getCartas();
+            ArrayList<Carta> cards = api.getAllCards();
+            // Despues de actualizar los datos movemos el listView hacia arriba
+           // cartas.smoothScrollToPosition(0);
+            Log.d("DEBUG", cards.toString());
+
+
             return cards;
         }
+
+
 
         //CLase que sirve para aplicar los ajustes
         @Override
         protected void onPostExecute(ArrayList<Carta> cards) {
-
+            super.onPostExecute(cards);
             adapter.clear();
-
-            SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getContext());
-
-            String filtroComun = pref.getString("categoriaCarta", "");
-            String filtroColor = pref.getString("colorCarta", "");
-
-
-            //Miro que las cartas cumplan con los ajustes
             for (int i = 0; i < cards.size(); ++i) {
-                if(filtroComun.equalsIgnoreCase("Empty")){
-                    filtroComun = "";
-                }
-                if (filtroColor.equalsIgnoreCase("")||filtroColor.isEmpty()) {
-                    adapter.add(cards.get(i));
-                }
-                //Esto se encarga de que el valor introducido en color exista y no pete si no existe
-                if(filtroColor.equalsIgnoreCase("White")||filtroColor.equalsIgnoreCase("Red")||filtroColor.equalsIgnoreCase("Black")||filtroColor.equalsIgnoreCase("Blue")||filtroColor.equalsIgnoreCase("Green")){
-                    configColor(cards.get(i), filtroColor);
-                }else if(!filtroColor.isEmpty()){
-                    filtroColor="";
-                    adapter.add(cards.get(i));
-                    ok = false;
-                }
-
-                if (!filtroColor.isEmpty() && !filtroComun.isEmpty()) {
-                    configGeneralTodo(cards.get(i), filtroColor,filtroComun);
-                }
-                else {
-                    configGeneral(cards.get(i),filtroComun);
-                }
-
+                adapter.add(cards.get(i));
             }
-
-            // Despues de actualizar los datos movemos el listView hacia arriba
-            cartas.smoothScrollToPosition(0);
-
-            //Mostraremos el warning
-            if(ok = true){Toast.makeText(getContext(), "Se han cargado " + cards.size() + " cartas.", Toast.LENGTH_SHORT).show();}
-            if(ok = false){ Toast.makeText(getContext(), "El color introducido no exite", Toast.LENGTH_SHORT).show();}
-
-        }
-
-        public void configGeneral(Carta cards, String filtroComun) {
-            if (cards.getTipo().equals(filtroComun)) {
-                adapter.add(cards);
-            }
-        }
-
-        public void configColor(Carta cards, String filtroColor) {
-                for (int j = 0; j < cards.getColor().length; j++) {
-                    if (cards.getColor()[j].equals(filtroColor)) {
-                        adapter.add(cards);
-                    }
-                }
-            }
-
-        public void configGeneralTodo(Carta cards, String filtroColor, String filtroComun) {
-            if (cards.getColor() != null) {
-                for (int j = 0; j < cards.getColor().length; j++) {
-                    if (cards.getColor()[j].equalsIgnoreCase(filtroColor)) {
-                        if (cards.getTipo().equalsIgnoreCase(filtroComun)) {
-                            adapter.add(cards);
-                        }
-                    }
-                }
-            }
-
+            adapter.notifyDataSetChanged();
 
         }
     }
+
 }

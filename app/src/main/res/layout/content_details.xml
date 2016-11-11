@@ -19,14 +19,13 @@
         android:id="@+id/details_imagenCarta"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true" />
-
     <TextView
         android:text="TextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/details_Rareza"
         android:layout_alignEnd="@+id/details_Rareza"
-        android:id="@+id/details_Color" />
+        android:id="@+id/details_Tipo" />
 
     <TextView
         android:text="TextView"
@@ -57,4 +56,12 @@
         android:textSize="24sp"
         android:layout_alignParentTop="true"
         android:layout_toEndOf="@+id/details_imagenCarta" />
+
+    <TextView
+        android:text="TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/details_Color"
+        android:layout_below="@+id/details_Tipo"
+        android:layout_alignStart="@+id/details_Tipo" />
 </RelativeLayout>

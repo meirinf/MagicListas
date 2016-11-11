@@ -1,9 +1,11 @@
 package test.magiclistas.API;
 
+import android.net.Uri;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-
+import android.util.Log;
+import android.support.annotation.Nullable;
 /**
  * Created by mireia on 30/10/16.
  */
@@ -19,66 +21,64 @@ import test.magiclistas.Carta;
 
 public class ApiCartas {
 
-    private  String url = "https://api.magicthegathering.io/v1/cards";
+    private static String url = "https://api.magicthegathering.io/v1/cards";
     //https://api.magicthegathering.io/v1/cards?pageSize=100
-    public ArrayList<Carta> getCartas() {
-
-        ArrayList<Carta> lista = new ArrayList<>();
+    public ArrayList<Carta> getAllCards(){
+        Uri builtUri = Uri.parse(url)
+                .buildUpon()
+                .build();
+        String url = builtUri.toString();
 
         try {
             String JsonResponse = HttpUtils.get(url);
-            JSONObject json = new JSONObject(JsonResponse);
-            JSONArray jsonNombre = json.getJSONArray("cards");
+            ArrayList<Carta> carta = new ArrayList<>();
 
-            String nombreCarta;
-            String tipoCarta;
-            String [] colors = null;
-            String imagen = null;
-            String texto = null;
+            JSONObject data = new JSONObject(JsonResponse);
+            JSONArray jsonCartas = data.getJSONArray("cards");
 
-            for (int i = 0; i < jsonNombre.length(); ++i) {
-
-                JSONObject object = jsonNombre.getJSONObject(i);
-
-                nombreCarta = object.getString("name");
-                tipoCarta = object.getString("rarity");
-
-                if (object.has("imageUrl")) {
-                    imagen = object.getString("imageUrl");
+            for (int i = 0; i <jsonCartas.length() ; i++) {
+                Carta card = new Carta();
+                JSONObject object = jsonCartas.getJSONObject(i);
+                card.setNombre(object.getString("name"));
+                card.setTipo(object.getString("type"));
+                card.setRareza(object.getString("rarity"));
+                if(object.has("color")){
+                    card.setColor(object.getString("color"));
                 }
+                card.setImagen(object.getString("imageUrl"));
+                carta.add(card);
 
-                if (object.has("text")) {
-                    texto = object.getString("text");
-                };
-                if(object.has("rarity")){
+            }
 
-                }
-
-                // Si tiene color
-                if (object.has("colors")) {
-                    int totalColors = object.getJSONArray("colors").length();
-                    colors = new String[totalColors];
-
-                    for (int j = 0; j <colors.length ; j++) {
-                        colors[j] = object.getJSONArray("colors").get(j).toString();
-                    }
-                    Carta carta = new Carta(nombreCarta, tipoCarta, colors, imagen, texto);
-                    lista.add(carta);
-                }
-                else {
-                    Carta carta = new Carta(nombreCarta, tipoCarta, colors, imagen, texto);
-                    lista.add(carta);
-                }
-        }
-
-        }
-
-        catch (JSONException e) {
+            return carta;
+        } catch (IOException e) {
             e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    String getCardsTypes(String pais) {
+        Uri builtUri = Uri.parse(url)
+                .buildUpon()
+                .appendPath("name")
+                .appendPath("type")
+                .appendPath("rarity")
+                .appendPath("color")
+                .appendPath("imageUrl")
+                .build();
+        String url = builtUri.toString();
+
+        try {
+            String JsonResponse = HttpUtils.get(url);
+            return JsonResponse;
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return lista;
+        return null;
     }
 
 }
+
+

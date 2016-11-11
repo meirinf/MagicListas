@@ -31,6 +31,7 @@ public class DetailsActivity extends AppCompatActivity {
         TextView texto = (TextView) findViewById(R.id.details_texto);
         TextView nombreCarta = (TextView) findViewById(R.id.details_nombreCarta);
         TextView rareza = (TextView) findViewById(R.id.details_Rareza);
+        TextView tipo =(TextView) findViewById(R.id.details_Tipo);
         TextView color = (TextView) findViewById(R.id.details_Color);
         ImageView imagen = (ImageView) findViewById(R.id.details_imagenCarta);
 
@@ -45,8 +46,9 @@ public class DetailsActivity extends AppCompatActivity {
 
                 texto.setText(carta.getTexto());
                 nombreCarta.setText(carta.getNombre());
-                rareza.setText(carta.getTipo());
-                color.setText(carta.getColor()[0]);
+                rareza.setText(carta.getRareza());
+                tipo.setText(carta.getTipo());
+                color.setText(carta.getColor());
 
                 Glide.with(this).
                         load(carta.getImagen()).

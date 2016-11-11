@@ -10,21 +10,23 @@ public class Carta implements Serializable {
 
     String nombre;
     String tipo;
-    String [] color;
+    String rareza;
+    String color;
     String imagen;
     String texto;
 
     private ArrayList<String> castList;
 
-    public Carta(String nombre, String tipo, String[] color, String imagen, String texto){
-        this.nombre = nombre;
-        this.tipo = tipo;
-        this.color = color;
-        this.imagen = imagen;
-        this.texto = texto;
+    public Carta(){
+
     }
 
     // Getters
+
+
+    public String getRareza() {
+        return rareza;
+    }
 
     public String getNombre() {
         return nombre;
@@ -38,11 +40,7 @@ public class Carta implements Serializable {
         return imagen;
     }
 
-    public ArrayList<String> getCastList() {
-        return castList;
-    }
-
-    public String[] getColor() {
+    public String getColor() {
         return color;
     }
 
@@ -64,11 +62,11 @@ public class Carta implements Serializable {
         this.imagen = imagen;
     }
 
-    public void setCastList(ArrayList<String> castList) {
-        this.castList = castList;
+    public void setRareza(String rareza) {
+        this.rareza = rareza;
     }
 
-    public void setColor(String [] color) {
+    public void setColor(String color) {
         this.color = color;
     }
 
