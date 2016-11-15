@@ -21,14 +21,43 @@ import test.magiclistas.Carta;
 
 public class ApiCartas {
 
-    private static String url = "https://api.magicthegathering.io/v1/cards";
-    //https://api.magicthegathering.io/v1/cards?pageSize=100
-    public ArrayList<Carta> getAllCards(){
+    private static String url = "https://api.magicthegathering.io/v1/cards?pageSize=100";
+
+   public ArrayList<Carta> getAllCards() {
         Uri builtUri = Uri.parse(url)
                 .buildUpon()
                 .build();
         String url = builtUri.toString();
 
+        return doCall(url);
+    }
+
+
+
+    public ArrayList<Carta> getCardsTypes(String color,String rar) {
+        Uri builtUri = Uri.parse(url)
+                .buildUpon()
+                .appendQueryParameter("rarity", rar)
+                .appendQueryParameter("color", color)
+                .build();
+        String url = builtUri.toString();
+
+        return doCall(url);
+    }
+
+    @Nullable
+    private ArrayList<Carta> doCall(String url) {
+        try {
+            String JsonResponse = HttpUtils.get(url);
+            return processJson(JsonResponse);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    private ArrayList<Carta> processJson(String jsonResponse) {
+        ArrayList<Carta> cards = new ArrayList<>();
         try {
             String JsonResponse = HttpUtils.get(url);
             ArrayList<Carta> carta = new ArrayList<>();
@@ -42,7 +71,7 @@ public class ApiCartas {
                 card.setNombre(object.getString("name"));
                 card.setTipo(object.getString("type"));
                 if(object.has("rarity"))
-                card.setRareza(object.getString("rarity"));
+                    card.setRareza(object.getString("rarity"));
                 if(object.has("colors")){
                     card.setColor(object.getString("colors"));
                 }
@@ -62,29 +91,9 @@ public class ApiCartas {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        return null;
+        return cards;
     }
 
-    String getCardsTypes(String pais) {
-        Uri builtUri = Uri.parse(url)
-                .buildUpon()
-                .appendPath("name")
-                .appendPath("type")
-                .appendPath("rarity")
-                .appendPath("text")
-                .appendPath("color")
-                .appendPath("imageUrl")
-                .build();
-        String url = builtUri.toString();
-
-        try {
-            String JsonResponse = HttpUtils.get(url);
-            return JsonResponse;
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
 
 }
 

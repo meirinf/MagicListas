@@ -99,11 +99,27 @@ public class MainActivityFragment extends Fragment {
 
         @Override
         protected ArrayList<Carta> doInBackground(Void... voids) {
+
             ApiCartas api = new ApiCartas();
-            ArrayList<Carta> cards = api.getAllCards();
+            ArrayList<Carta> cards = null;
+            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+            String rarity  = preferences.getString("Rarity", "Rare");
+            String color = preferences.getString("Colors","Red");
+
+
+
+
+            if (rarity.equals("Raity")||color.equals("Colors")) {
+                               cards = api.getAllCards();
+                           } else {
+                                cards = api.getCardsTypes(rarity,color);
+                           }
             // Despues de actualizar los datos movemos el listView hacia arriba
-           // cartas.smoothScrollToPosition(0);
-            Log.d("DEBUG", cards.toString());
+            // cartas.smoothScrollToPosition(0);
+            Log.d("DEBUG", cards != null ? cards.toString() : null);
+
+
+
 
 
             return cards;
