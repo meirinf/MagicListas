@@ -109,7 +109,7 @@ public class MainActivityFragment extends Fragment {
 
 
 
-            if (rarity.equals("Raity")||color.equals("Colors")) {
+            if (rarity.equals("Rarity")||color.equals("Colors")) {
                                cards = api.getAllCards();
                            } else {
                                 cards = api.getCardsTypes(rarity,color);

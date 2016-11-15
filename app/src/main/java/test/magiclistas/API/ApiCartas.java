@@ -37,8 +37,8 @@ public class ApiCartas {
     public ArrayList<Carta> getCardsTypes(String color,String rar) {
         Uri builtUri = Uri.parse(url)
                 .buildUpon()
-                .appendQueryParameter("rarity", rar)
-                .appendQueryParameter("color", color)
+                .appendQueryParameter("Rarity", rar)
+                .appendQueryParameter("Colors", color)
                 .build();
         String url = builtUri.toString();
 
