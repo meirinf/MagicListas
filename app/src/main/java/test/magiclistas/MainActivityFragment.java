@@ -105,6 +105,9 @@ public class MainActivityFragment extends Fragment {
 
             ApiCartas api = new ApiCartas();
             SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+
+            
+            //asignamos el nombre en pref_general
             String rarity  = preferences.getString("categoriaCarta", "rare");
             String colors = preferences.getString("colorCarta","Red");
             ArrayList<Carta> cards =api.getCardsTypes(rarity,colors);
