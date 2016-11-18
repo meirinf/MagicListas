@@ -23,43 +23,19 @@ public class ApiCartas {
 
     private static String url = "https://api.magicthegathering.io/v1/cards?pageSize=100";
 
-   public ArrayList<Carta> getAllCards() {
+    public ArrayList<Carta> getCardsTypes(String rar,String color) {
         Uri builtUri = Uri.parse(url)
+
                 .buildUpon()
+                .appendQueryParameter("rarity", rar)
+                .appendQueryParameter("colors", color)
                 .build();
-        String url = builtUri.toString();
-
-        return doCall(url);
-    }
+        String urls = builtUri.toString();
 
 
-
-    public ArrayList<Carta> getCardsTypes(String color,String rar) {
-        Uri builtUri = Uri.parse(url)
-                .buildUpon()
-                .appendQueryParameter("Rarity", rar)
-                .appendQueryParameter("Colors", color)
-                .build();
-        String url = builtUri.toString();
-
-        return doCall(url);
-    }
-
-    @Nullable
-    private ArrayList<Carta> doCall(String url) {
-        try {
-            String JsonResponse = HttpUtils.get(url);
-            return processJson(JsonResponse);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    private ArrayList<Carta> processJson(String jsonResponse) {
         ArrayList<Carta> cards = new ArrayList<>();
         try {
-            String JsonResponse = HttpUtils.get(url);
+            String JsonResponse = HttpUtils.get(urls);
             ArrayList<Carta> carta = new ArrayList<>();
 
             JSONObject data = new JSONObject(JsonResponse);

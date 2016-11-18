@@ -63,6 +63,9 @@ public class MainActivityFragment extends Fragment {
                 Intent details = new Intent(getContext(), DetailsActivity.class);
                 details.putExtra("carta", items.get(position));
                 startActivity(details);
+
+                //Despues de actualizar los datos movemos el listView hacia arriba
+                cartas.smoothScrollToPosition(0);
             }
         });
 
@@ -101,31 +104,15 @@ public class MainActivityFragment extends Fragment {
         protected ArrayList<Carta> doInBackground(Void... voids) {
 
             ApiCartas api = new ApiCartas();
-            ArrayList<Carta> cards = null;
             SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
-            String rarity  = preferences.getString("Rarity", "Rare");
-            String color = preferences.getString("Colors","Red");
+            String rarity  = preferences.getString("categoriaCarta", "rare");
+            String colors = preferences.getString("colorCarta","Red");
+            ArrayList<Carta> cards =api.getCardsTypes(rarity,colors);
 
-
-
-
-            if (rarity.equals("Rarity")||color.equals("Colors")) {
-                               cards = api.getAllCards();
-                           } else {
-                                cards = api.getCardsTypes(rarity,color);
-                           }
-            // Despues de actualizar los datos movemos el listView hacia arriba
-            // cartas.smoothScrollToPosition(0);
-            Log.d("DEBUG", cards != null ? cards.toString() : null);
-
-
-
-
+           Log.d("DEBUG", cards != null ? cards.toString() : null);
 
             return cards;
         }
-
-
 
         //CLase que sirve para aplicar los ajustes
         @Override
