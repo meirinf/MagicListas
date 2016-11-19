@@ -22,6 +22,7 @@ import test.magiclistas.Carta;
 public class ApiCartas {
 
     private static String url = "https://api.magicthegathering.io/v1/cards?pageSize=100";
+    ArrayList<Carta> carta = new ArrayList<>();
 
     public ArrayList<Carta> getCardsTypes(String rar,String color) {
         Uri builtUri = Uri.parse(url)
@@ -31,12 +32,8 @@ public class ApiCartas {
                 .appendQueryParameter("colors", color)
                 .build();
         String urls = builtUri.toString();
-
-
-        ArrayList<Carta> cards = new ArrayList<>();
         try {
             String JsonResponse = HttpUtils.get(urls);
-            ArrayList<Carta> carta = new ArrayList<>();
 
             JSONObject data = new JSONObject(JsonResponse);
             JSONArray jsonCartas = data.getJSONArray("cards");
@@ -60,14 +57,12 @@ public class ApiCartas {
                 carta.add(card);
 
             }
-
-            return carta;
         } catch (IOException e) {
             e.printStackTrace();
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        return cards;
+        return carta;
     }
 
 
