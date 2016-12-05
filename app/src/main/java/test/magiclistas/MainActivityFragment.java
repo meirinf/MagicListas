@@ -1,6 +1,8 @@
 package test.magiclistas;
+
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.databinding.DataBindingUtil;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -14,16 +16,20 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
+
+import org.jetbrains.annotations.Nullable;
+
 import java.util.ArrayList;
 import java.util.List;
 
-import org.jetbrains.annotations.Nullable;
-import org.json.JSONArray;
-import org.json.JSONObject;
-
 import test.magiclistas.API.ApiCartas;
+import test.magiclistas.Carta;
+import test.magiclistas.CartasAdapter;
 import test.magiclistas.Configracion.ConfigActivity;
+import test.magiclistas.DetailsActivity;
+import test.magiclistas.R;
+import test.magiclistas.databinding.FragmentMainBinding;
+
 
 public class MainActivityFragment extends Fragment {
 
@@ -50,27 +56,37 @@ public class MainActivityFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_main, container, false);
 
-        cartas = (ListView) view.findViewById(R.id.Cartas);
+        final FragmentMainBinding binding = DataBindingUtil.inflate(inflater,R.layout.fragment_main,container,false);
+
+        View view = binding.getRoot();
         items = new ArrayList<>();
-        adapter = new CartasAdapter(getContext(), 0, items);
-        cartas.setAdapter(adapter);
+        adapter = new CartasAdapter(getContext(),
+                R.layout.adapter_cartas,
+                items
+        );
 
-        // Al pulsar en una posicion del listView se ejecuta el onClick
-        cartas.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+
+
+
+        binding.Cartas.setAdapter(adapter);
+
+        // Al pulsar en una posicion se ejecuta el onClick
+        binding.Cartas.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent details = new Intent(getContext(), DetailsActivity.class);
                 details.putExtra("carta", items.get(position));
                 startActivity(details);
 
-                //Despues de actualizar los datos movemos el listView hacia arriba
-                cartas.smoothScrollToPosition(0);
+                //Despues de actualizar los datos movemos  hacia arriba
+                binding.Cartas.smoothScrollToPosition(0);
             }
         });
 
         return view;
     }
+
 
     //Creamos el inflate del menu
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
