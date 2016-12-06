@@ -1,4 +1,4 @@
-package test.magiclistas;
+package test.magiclistas.Objetos;
 
 import java.io.Serializable;
 import java.util.ArrayList;

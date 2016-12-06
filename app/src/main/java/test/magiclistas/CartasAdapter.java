@@ -10,6 +10,7 @@ import com.bumptech.glide.Glide;
 
 import java.util.List;
 
+        import test.magiclistas.Objetos.Carta;
         import test.magiclistas.databinding.AdapterCartasBinding;
 
 

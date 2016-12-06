@@ -1,22 +1,19 @@
 package test.magiclistas.API;
 
 import android.net.Uri;
-import android.widget.Toast;
-
-import java.util.ArrayList;
-import android.util.Log;
-import android.support.annotation.Nullable;
-/**
- * Created by mireia on 30/10/16.
- */
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import java.io.IOException;
 
-import test.magiclistas.API.HttpUtils;
-import test.magiclistas.Carta;
+import java.io.IOException;
+import java.util.ArrayList;
+
+import test.magiclistas.Objetos.Carta;
+
+/**
+ * Created by mireia on 30/10/16.
+ */
 
 
 public class ApiCartas {
@@ -26,7 +23,6 @@ public class ApiCartas {
 
     public ArrayList<Carta> getCardsTypes(String rar,String color) {
         Uri builtUri = Uri.parse(url)
-
                 .buildUpon()
                 .appendQueryParameter("rarity", rar)
                 .appendQueryParameter("colors", color)

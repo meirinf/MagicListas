@@ -41,9 +41,8 @@
     android:layout_height="wrap_content"
     android:hint="The Dark Knight"
     android:textSize="12sp"
-    android:textStyle="bold"
-      android:layout_below="@+id/adapterTipo"
-      android:layout_alignStart="@+id/adapterTipo" />
+    android:textStyle="bold" android:layout_below="@+id/adapterTipo"
+    android:layout_alignStart="@+id/adapterTipo" />
 
 </RelativeLayout>
 </layout>

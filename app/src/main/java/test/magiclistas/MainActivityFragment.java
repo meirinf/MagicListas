@@ -23,11 +23,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import test.magiclistas.API.ApiCartas;
-import test.magiclistas.Carta;
-import test.magiclistas.CartasAdapter;
 import test.magiclistas.Configracion.ConfigActivity;
-import test.magiclistas.DetailsActivity;
-import test.magiclistas.R;
+import test.magiclistas.Objetos.Carta;
 import test.magiclistas.databinding.FragmentMainBinding;
 
 
@@ -65,10 +62,6 @@ public class MainActivityFragment extends Fragment {
                 R.layout.adapter_cartas,
                 items
         );
-
-
-
-
 
         binding.Cartas.setAdapter(adapter);
 
@@ -124,8 +117,8 @@ public class MainActivityFragment extends Fragment {
 
             
             //asignamos el nombre en pref_general
-            String rarity  = preferences.getString("categoriaCarta", "rare");
-            String colors = preferences.getString("colorCarta","Red");
+            String rarity  = preferences.getString("categoriaCarta", " ");
+            String colors = preferences.getString("colorCarta"," ");
             ArrayList<Carta> cards =api.getCardsTypes(rarity,colors);
 
            Log.d("DEBUG", cards != null ? cards.toString() : null);
