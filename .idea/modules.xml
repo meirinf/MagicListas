@@ -4,6 +4,8 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/MagicListas.iml" filepath="$PROJECT_DIR$/MagicListas.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/libreias/cupboard/cupboard.iml" filepath="$PROJECT_DIR$/libreias/cupboard/cupboard.iml" />
+      <module fileurl="file://$PROJECT_DIR$/libreias/libreias.iml" filepath="$PROJECT_DIR$/libreias/libreias.iml" />
     </modules>
   </component>
 </project>
