@@ -65,19 +65,23 @@ public class MainActivityFragment extends Fragment {
 
         binding.Cartas.setAdapter(adapter);
 
+
         // Al pulsar en una posicion se ejecuta el onClick
         binding.Cartas.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent details = new Intent(getContext(), DetailsActivity.class);
-                details.putExtra("carta", items.get(position));
-                startActivity(details);
 
-                //Despues de actualizar los datos movemos  hacia arriba
-                binding.Cartas.smoothScrollToPosition(0);
+        @Override
+         public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+                Carta card = (Carta) adapterView.getItemAtPosition(i);
+
+                Intent intent = new Intent(getContext(), details.class);
+                intent.putExtra("card", card);
+                startActivity(intent);
             }
-        });
+             });
 
         return view;
+
     }
 
 
