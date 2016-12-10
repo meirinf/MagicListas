@@ -140,6 +140,7 @@ public class MainActivityFragment extends Fragment {
             Uri cardUri = helper.getUri(Carta.class);
             cupboard().withContext(getContext()).put(cardUri, Carta.class, cards);
 
+
             //return cards;
             //}
 
