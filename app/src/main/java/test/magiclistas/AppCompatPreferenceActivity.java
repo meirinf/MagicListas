@@ -1,4 +1,4 @@
-package test.magiclistas.Configracion;
+package test.magiclistas;
 
 import android.content.res.Configuration;
 import android.os.Bundle;

@@ -4,24 +4,22 @@ import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.bumptech.glide.Glide;
 
-import test.magiclistas.Objetos.Carta;
 import test.magiclistas.databinding.FragmentDetailsBinding;
 
 /**
  * A placeholder fragment containing a simple view.
  */
 public class detailsFragment extends Fragment {
+
     private FragmentDetailsBinding binding;
 
-    public detailsFragment() {
-    }
+    public detailsFragment() {}
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -40,15 +38,12 @@ public class detailsFragment extends Fragment {
 
             if (carta != null) {
 
-                Log.d("card", carta.toString());
-
                 //llamamos a la id con el binding del content details
                 binding.detailsTexto.setText("Pequeña Descripción: " + carta.getTexto());
                 binding.detailsNombreCarta.setText("Nombre Carta: " + carta.getNombre());
                 binding.detailsRareza.setText("Rareza: " + carta.getRareza());
                 binding.detailsTipo.setText("Tipo: " + carta.getTipo());
                 binding.detailsColor.setText("Color: " + carta.getColor());
-
 
                 //Creamos la imagen
                 Glide.with(this)

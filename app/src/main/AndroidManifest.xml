@@ -21,7 +21,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Configracion.ConfigActivity"
+            android:name=".ConfigActivity"
             android:label="@string/title_activity_config"
             android:parentActivityName=".MainActivity">
             <meta-data
@@ -47,9 +47,10 @@
         </activity>
 
         <provider
-            android:name=".API.ContentProvider"
+            android:name=".ContentProvider"
             android:authorities="${applicationId}.provider"
             android:exported="false"></provider>
+
     </application>
 
 </manifest>

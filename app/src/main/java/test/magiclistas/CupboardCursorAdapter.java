@@ -1,14 +1,10 @@
-package test.magiclistas.Objetos;
-
-/**
- * Created by mireia on 10/12/16.
- */
-
+package test.magiclistas;
 import android.content.Context;
 import android.database.Cursor;
 import android.support.v4.widget.CursorAdapter;
 import android.view.View;
 import android.view.ViewGroup;
+
 import nl.qbusict.cupboard.Cupboard;
 
 import static nl.qbusict.cupboard.CupboardFactory.cupboard;

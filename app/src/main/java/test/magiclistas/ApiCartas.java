@@ -1,4 +1,4 @@
-package test.magiclistas.API;
+package test.magiclistas;
 
 import android.net.Uri;
 
@@ -9,8 +9,6 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import test.magiclistas.Objetos.Carta;
-
 /**
  * Created by mireia on 30/10/16.
  */
@@ -18,9 +16,9 @@ import test.magiclistas.Objetos.Carta;
 public class ApiCartas {
 
     private static String url = "https://api.magicthegathering.io/v1/cards?pageSize=100";
-    private ArrayList<Carta> carta = new ArrayList<>();
+    private static ArrayList<Carta> carta = new ArrayList<>();
 
-    public ArrayList<Carta> getCardsTypes(String rar,String color) {
+    public static ArrayList<Carta> getCardsTypes(String rar, String color) {
 
         Uri builtUri = Uri.parse(url)
                 .buildUpon()
@@ -42,6 +40,7 @@ public class ApiCartas {
 
                 card.setNombre(object.getString("name"));
                 card.setTipo(object.getString("type"));
+
                 if(object.has("rarity"))
                     card.setRareza(object.getString("rarity"));
                 if(object.has("colors")){
@@ -62,8 +61,6 @@ public class ApiCartas {
         }
         return carta;
     }
-
-
 }
 
 

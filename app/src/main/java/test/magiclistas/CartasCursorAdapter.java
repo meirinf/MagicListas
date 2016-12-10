@@ -10,8 +10,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import test.magiclistas.Objetos.Carta;
-import test.magiclistas.Objetos.CupboardCursorAdapter;
+import com.bumptech.glide.Glide;
+
 import test.magiclistas.databinding.AdapterCartasBinding;
 
 public class CartasCursorAdapter extends CupboardCursorAdapter<Carta> {
@@ -24,7 +24,7 @@ public class CartasCursorAdapter extends CupboardCursorAdapter<Carta> {
     public View newView(Context context, Carta model, ViewGroup parent) {
 
         LayoutInflater inflater = LayoutInflater.from(context);
-        AdapterCartasBinding binding = DataBindingUtil.inflate(inflater,R.layout.fragment_main, parent, false);
+        AdapterCartasBinding binding = DataBindingUtil.inflate(inflater, R.layout.adapter_cartas, parent, false);
 
         return binding.getRoot();
     }
@@ -37,5 +37,6 @@ public class CartasCursorAdapter extends CupboardCursorAdapter<Carta> {
         binding.adapterNombre.setText("Nombre Carta: " + model.getNombre());
         binding.adapterTipo.setText("Tipo: " + model.getTipo());
         binding.adapterColor.setText("Color: " + model.getColor());
+        Glide.with(context).load(model.getImagen()).into(binding.adapterCarta);
     }
 }

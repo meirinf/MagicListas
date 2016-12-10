@@ -1,15 +1,11 @@
-package test.magiclistas.API;
-
+package test.magiclistas;
 
 import nl.littlerobots.cupboard.tools.provider.CupboardContentProvider;
-import test.magiclistas.BuildConfig;
-import test.magiclistas.Objetos.Carta;
 
 import static nl.qbusict.cupboard.CupboardFactory.cupboard;
 
-
-public class ContentProvider extends CupboardContentProvider{
-
+public class ContentProvider extends CupboardContentProvider {
+    // The content provider authority is used for building Uri's for the provider
     public static final String AUTHORITY = BuildConfig.APPLICATION_ID + ".provider";
 
     static {
@@ -19,7 +15,4 @@ public class ContentProvider extends CupboardContentProvider{
     public ContentProvider() {
         super(AUTHORITY, 1);
     }
-
-
-
 }

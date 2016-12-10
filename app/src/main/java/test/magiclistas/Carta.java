@@ -1,7 +1,6 @@
-package test.magiclistas.Objetos;
+package test.magiclistas;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 
 /**
  * Created by mireia on 30/10/16.
@@ -15,14 +14,11 @@ public class Carta implements Serializable {
     String imagen;
     String texto;
 
-    private ArrayList<String> castList;
+    // private ArrayList<String> castList;
 
-    public Carta(){
-
-    }
+    public Carta(){            }
 
     // Getters
-
 
     public String getRareza() {
         return rareza;
@@ -42,10 +38,6 @@ public class Carta implements Serializable {
 
     public String getColor() {
         return color;
-    }
-
-    public ArrayList<String> getCastList() {
-        return castList;
     }
 
     public String getTexto() {
@@ -72,10 +64,6 @@ public class Carta implements Serializable {
 
     public void setColor(String color) {
         this.color = color;
-    }
-
-    public void setCastList(ArrayList<String> castList) {
-        this.castList = castList;
     }
 
     public void setTexto(String texto) {

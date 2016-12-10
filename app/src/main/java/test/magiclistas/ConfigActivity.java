@@ -1,4 +1,4 @@
-package test.magiclistas.Configracion;
+package test.magiclistas;
 
 
 import android.annotation.TargetApi;
@@ -20,8 +20,6 @@ import android.preference.RingtonePreference;
 import android.text.TextUtils;
 import android.view.MenuItem;
 import android.support.v4.app.NavUtils;
-
-import test.magiclistas.R;
 
 import java.util.List;
 

@@ -1,14 +1,14 @@
 package test.magiclistas;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
-import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.databinding.DataBindingUtil;
-import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.Loader;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -16,33 +16,23 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ListView;
+import com.alexvasilkov.events.Events;
 
-import org.jetbrains.annotations.Nullable;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import nl.littlerobots.cupboard.tools.provider.UriHelper;
-import test.magiclistas.API.ApiCartas;
-import test.magiclistas.API.ContentProvider;
-import test.magiclistas.Configracion.ConfigActivity;
-import test.magiclistas.Objetos.Carta;
 import test.magiclistas.databinding.FragmentMainBinding;
 
-import static nl.qbusict.cupboard.CupboardFactory.cupboard;
+public class MainActivityFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor>{
 
+    private CartasCursorAdapter adapter;
+    private ProgressDialog dialog;
 
-public class MainActivityFragment extends Fragment {
+    public MainActivityFragment() {}
 
-    private List<Carta> items;
-    private CartasAdapter adapter;
-    private ListView cartas;
-    private boolean ok = true;
+    @Override
+    public void onStart() {
+        super.onStart();
 
-    public MainActivityFragment() {
+        Events.register(this);
     }
-
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -50,28 +40,19 @@ public class MainActivityFragment extends Fragment {
         setHasOptionsMenu(true);
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        refresh();
-    }
-
-
     //Agregamos el menu en el fragment
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        final FragmentMainBinding binding = DataBindingUtil.inflate(inflater,R.layout.fragment_main,container,false);
-
+        FragmentMainBinding binding = DataBindingUtil.inflate(inflater,R.layout.fragment_main,container,false);
         View view = binding.getRoot();
-        items = new ArrayList<>();
-        adapter = new CartasAdapter(getContext(),
-                R.layout.adapter_cartas,
-                items
-        );
 
+        // Dialog
+        dialog = new ProgressDialog(getContext());
+        dialog.setMessage("Loading...");
+
+        adapter = new CartasCursorAdapter(getContext(), Carta.class);
         binding.Cartas.setAdapter(adapter);
-
 
         // Al pulsar en una posicion se ejecuta el onClick
         binding.Cartas.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -87,8 +68,9 @@ public class MainActivityFragment extends Fragment {
             }
              });
 
-        return view;
+        getLoaderManager().initLoader(0, null, this);
 
+        return view;
     }
 
 
@@ -113,49 +95,33 @@ public class MainActivityFragment extends Fragment {
         return super.onOptionsItemSelected(item);
     }
 
+    @Events.Subscribe("start-downloading-data")
+    public void preRefresh() {
+        dialog.show();
+    }
+
+    @Events.Subscribe("finish-downloading-data")
+    public void afterRefresh() {
+        dialog.dismiss();
+    }
+
     private void refresh() {
-        ActualizarCartas task = new ActualizarCartas();
+        ActualizarCartasTask task = new ActualizarCartasTask(getActivity().getApplicationContext());
         task.execute();
     }
 
+    @Override
+    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+        return DataManager.getCursorLoader(getContext());
+    }
 
-    public class ActualizarCartas extends AsyncTask<Void, Void, Void> {
+    @Override
+    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+        adapter.swapCursor(data);
+    }
 
-        @Override
-        protected Void doInBackground(Void... voids) {
-
-            ApiCartas api = new ApiCartas();
-            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
-
-            //Asignamos el nombre en pref_general
-            String rarity = preferences.getString("categoriaCarta", " ");
-            String colors = preferences.getString("colorCarta", " ");
-
-            ArrayList<Carta> cards;
-            cards = api.getCardsTypes(rarity, colors);
-
-            Log.d("DEBUG", cards != null ? cards.toString() : null);
-
-            UriHelper helper = UriHelper.with(ContentProvider.AUTHORITY);
-            Uri cardUri = helper.getUri(Carta.class);
-            cupboard().withContext(getContext()).put(cardUri, Carta.class, cards);
-
-
-            //return cards;
-            //}
-
-       /* //CLase que sirve para aplicar los ajustes
-        @Override
-        protected void onPostExecute(ArrayList<Carta> cards) {
-            super.onPostExecute(cards);
-            adapter.clear();
-            for (int i = 0; i < cards.size(); ++i) {
-                adapter.add(cards.get(i));
-            }
-            adapter.notifyDataSetChanged();
-
-        }*/
-            return null;
-        }
+    @Override
+    public void onLoaderReset(Loader<Cursor> loader) {
+        adapter.swapCursor(null);
     }
 }
