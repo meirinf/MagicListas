@@ -3,6 +3,7 @@ package test.magiclistas;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.databinding.DataBindingUtil;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -22,10 +23,14 @@ import org.jetbrains.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
+import nl.littlerobots.cupboard.tools.provider.UriHelper;
 import test.magiclistas.API.ApiCartas;
+import test.magiclistas.API.ContentProvider;
 import test.magiclistas.Configracion.ConfigActivity;
 import test.magiclistas.Objetos.Carta;
 import test.magiclistas.databinding.FragmentMainBinding;
+
+import static nl.qbusict.cupboard.CupboardFactory.cupboard;
 
 
 public class MainActivityFragment extends Fragment {
@@ -38,7 +43,7 @@ public class MainActivityFragment extends Fragment {
     public MainActivityFragment() {
     }
 
-    //Agregamos el menu en el fragment
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,6 +56,8 @@ public class MainActivityFragment extends Fragment {
         refresh();
     }
 
+
+    //Agregamos el menu en el fragment
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -107,30 +114,36 @@ public class MainActivityFragment extends Fragment {
     }
 
     private void refresh() {
-        RefreshAsyncTask refreshAsyncTask = new RefreshAsyncTask();
-        refreshAsyncTask.execute();
+        ActualizarCartas task = new ActualizarCartas();
+        task.execute();
     }
 
-    class RefreshAsyncTask extends AsyncTask<Void, Void, ArrayList<Carta>> {
+
+    public class ActualizarCartas extends AsyncTask<Void, Void, Void> {
 
         @Override
-        protected ArrayList<Carta> doInBackground(Void... voids) {
+        protected Void doInBackground(Void... voids) {
 
             ApiCartas api = new ApiCartas();
             SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
 
-            
-            //asignamos el nombre en pref_general
-            String rarity  = preferences.getString("categoriaCarta", " ");
-            String colors = preferences.getString("colorCarta"," ");
-            ArrayList<Carta> cards =api.getCardsTypes(rarity,colors);
+            //Asignamos el nombre en pref_general
+            String rarity = preferences.getString("categoriaCarta", " ");
+            String colors = preferences.getString("colorCarta", " ");
 
-           Log.d("DEBUG", cards != null ? cards.toString() : null);
+            ArrayList<Carta> cards;
+            cards = api.getCardsTypes(rarity, colors);
 
-            return cards;
-        }
+            Log.d("DEBUG", cards != null ? cards.toString() : null);
 
-        //CLase que sirve para aplicar los ajustes
+            UriHelper helper = UriHelper.with(ContentProvider.AUTHORITY);
+            Uri cardUri = helper.getUri(Carta.class);
+            cupboard().withContext(getContext()).put(cardUri, Carta.class, cards);
+
+            //return cards;
+            //}
+
+       /* //CLase que sirve para aplicar los ajustes
         @Override
         protected void onPostExecute(ArrayList<Carta> cards) {
             super.onPostExecute(cards);
@@ -140,7 +153,8 @@ public class MainActivityFragment extends Fragment {
             }
             adapter.notifyDataSetChanged();
 
+        }*/
+            return null;
         }
     }
-
 }

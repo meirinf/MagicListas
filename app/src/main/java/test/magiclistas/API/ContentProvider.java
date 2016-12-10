@@ -16,7 +16,7 @@ public class ContentProvider extends CupboardContentProvider{
         cupboard().register(Carta.class);
     }
 
-    public  ContentProvider() {
+    public ContentProvider() {
         super(AUTHORITY, 1);
     }
 

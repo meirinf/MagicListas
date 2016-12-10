@@ -21,12 +21,15 @@ public class ApiCartas {
     private ArrayList<Carta> carta = new ArrayList<>();
 
     public ArrayList<Carta> getCardsTypes(String rar,String color) {
+
         Uri builtUri = Uri.parse(url)
                 .buildUpon()
                 .appendQueryParameter("rarity", rar)
                 .appendQueryParameter("colors", color)
                 .build();
+
         String urls = builtUri.toString();
+
         try {
             String JsonResponse = HttpUtils.get(urls);
 
@@ -36,6 +39,7 @@ public class ApiCartas {
             for (int i = 0; i <jsonCartas.length() ; i++) {
                 Carta card = new Carta();
                 JSONObject object = jsonCartas.getJSONObject(i);
+
                 card.setNombre(object.getString("name"));
                 card.setTipo(object.getString("type"));
                 if(object.has("rarity"))

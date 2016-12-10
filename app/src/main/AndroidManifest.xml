@@ -48,9 +48,8 @@
 
         <provider
             android:name=".API.ContentProvider"
-            android:authorities="https"
-            android:enabled="true"
-            android:exported="true"></provider>
+            android:authorities="${applicationId}.provider"
+            android:exported="false"></provider>
     </application>
 
 </manifest>
