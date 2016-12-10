@@ -45,6 +45,12 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="test.magiclistas.MainActivity" />
         </activity>
+
+        <provider
+            android:name=".API.ContentProvider"
+            android:authorities="https"
+            android:enabled="true"
+            android:exported="true"></provider>
     </application>
 
 </manifest>

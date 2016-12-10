@@ -15,11 +15,10 @@ import test.magiclistas.Objetos.Carta;
  * Created by mireia on 30/10/16.
  */
 
-
 public class ApiCartas {
 
     private static String url = "https://api.magicthegathering.io/v1/cards?pageSize=100";
-    ArrayList<Carta> carta = new ArrayList<>();
+    private ArrayList<Carta> carta = new ArrayList<>();
 
     public ArrayList<Carta> getCardsTypes(String rar,String color) {
         Uri builtUri = Uri.parse(url)
@@ -51,7 +50,6 @@ public class ApiCartas {
                     card.setImagen(object.getString("imageUrl"));
                 }
                 carta.add(card);
-
             }
         } catch (IOException e) {
             e.printStackTrace();

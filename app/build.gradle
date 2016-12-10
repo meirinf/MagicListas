@@ -41,4 +41,8 @@ dependencies {
     compile 'com.google.android.gms:play-services-appindexing:8.4.0'
     compile 'nl.qbusict:cupboard:2.1.4'
     compile 'nl.littlerobots:cupboard-tools:0.2.0'
+    compile 'nl.qbusict:cupboard:2.1.4'
+    compile 'nl.littlerobots:cupboard-tools:0.2.0'
+    compile 'com.android.support.test:runner:0.5'
+    compile 'com.android.support.test.espresso:espresso-core:2.2.2'
 }
