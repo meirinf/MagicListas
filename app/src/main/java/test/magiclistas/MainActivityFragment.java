@@ -30,8 +30,8 @@ public class MainActivityFragment extends Fragment implements LoaderManager.Load
     @Override
     public void onStart() {
         super.onStart();
-
         Events.register(this);
+        refresh();
     }
 
     @Override
@@ -87,7 +87,11 @@ public class MainActivityFragment extends Fragment implements LoaderManager.Load
         if (item.getItemId() == R.id.Refresh) {
             refresh();
             return true;
-        } else if (item.getItemId() == R.id.Config) {
+        }
+        else if (item.getItemId() == R.id.deleteDB){
+            DataManager.borrarCartas(getContext());
+        }
+        else if (item.getItemId() == R.id.Config) {
             Intent a = new Intent(getContext(), ConfigActivity.class);
             startActivity(a);
             return true;

@@ -7,12 +7,22 @@
         android:id="@+id/Refresh"
         android:orderInCategory="100"
         android:title="Refresh"
-        app:showAsAction="never" />
+        android:icon="@drawable/ic_cached"
+        app:showAsAction="always"/>
 
     <item
         android:id="@+id/Config"
         android:orderInCategory="100"
+        app:showAsAction="always"
         android:title="Configuracion"
-        app:showAsAction="never" />
+        android:icon="@drawable/ic_settings"
+/>
+
+    <item
+        android:id="@+id/deleteDB"
+        android:orderInCategory="100"
+        android:title="Borrar BBDD"
+        android:icon="@drawable/ic_delete"
+        app:showAsAction="always"/>
 
 </menu>
