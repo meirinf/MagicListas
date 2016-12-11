@@ -62,14 +62,14 @@ public class MainActivityFragment extends Fragment implements LoaderManager.Load
         @Override
          public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
+            Carta card = (Carta) adapterView.getItemAtPosition(i);
             if (!esTablet()) {
-                Carta card = (Carta) adapterView.getItemAtPosition(i);
                 Intent intent = new Intent(getContext(), details.class);
                 intent.putExtra("card", card);
                 startActivity(intent);
             }
             else {
-                Events.create("card-selected").param(container).post();
+                Events.create("card-selected").param(card).post();
             }
             }
              });
