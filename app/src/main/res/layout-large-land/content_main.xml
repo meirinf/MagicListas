@@ -9,39 +9,43 @@
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1">
+        android:layout_weight="5">
 
         <fragment
             android:id="@+id/fragment4"
             android:name="test.magiclistas.detailsFragment"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:layout="@layout/fragment_details"
-            app:layout_constraintLeft_toLeftOf="@+id/guideline" />
+            app:layout_constraintLeft_toLeftOf="@+id/guideline"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="8dp" />
 
         <fragment
             android:id="@+id/fragment3"
             android:name="test.magiclistas.MainActivityFragment"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             android:layout_weight="1"
             tools:layout="@layout/fragment_main"
             app:layout_constraintRight_toLeftOf="@+id/guideline"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="8dp" />
 
         <android.support.constraint.Guideline
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/guideline"
-            app:layout_constraintGuide_begin="671dp"
+            app:layout_constraintGuide_begin="541dp"
             android:orientation="vertical"
             tools:layout_editor_absoluteY="0dp"
-            tools:layout_editor_absoluteX="671dp" />
+            tools:layout_editor_absoluteX="541dp" />
     </android.support.constraint.ConstraintLayout>
 
 </LinearLayout>
