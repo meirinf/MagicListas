@@ -33,7 +33,6 @@ public class MainActivityFragment extends Fragment implements LoaderManager.Load
     public void onStart() {
         super.onStart();
         Events.register(this);
-        refresh();
     }
 
     @Override
@@ -41,6 +40,7 @@ public class MainActivityFragment extends Fragment implements LoaderManager.Load
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
     }
+
 
     //Agregamos el menu en el fragment
     @Override
@@ -78,14 +78,9 @@ public class MainActivityFragment extends Fragment implements LoaderManager.Load
 
         return view;
     }
-
+    //Esto manda señal si es tableta o no al xml
     boolean esTablet() {
         return getResources().getBoolean(R.bool.tablet);
-    }
-
-    @Events.Subscribe("card-selected")
-    private void cardselected(Carta card){
-        updateUi(card);
     }
 
 
@@ -117,15 +112,6 @@ public class MainActivityFragment extends Fragment implements LoaderManager.Load
         return super.onOptionsItemSelected(item);
     }
 
-    @Events.Subscribe("start-downloading-data")
-    public void preRefresh() {
-        dialog.show();
-    }
-
-    @Events.Subscribe("finish-downloading-data")
-    public void afterRefresh() {
-        dialog.dismiss();
-    }
 
     private void refresh() {
         ActualizarCartasTask task = new ActualizarCartasTask(getActivity().getApplicationContext());
@@ -145,5 +131,20 @@ public class MainActivityFragment extends Fragment implements LoaderManager.Load
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
         adapter.swapCursor(null);
+    }
+
+    //Events tablet
+    @Events.Subscribe("card-selected")
+    private void cardselected(Carta card){
+        updateUi(card);
+    }
+    @Events.Subscribe("start-downloading-data")
+    public void preRefresh() {
+        dialog.show();
+    }
+
+    @Events.Subscribe("finish-downloading-data")
+    public void afterRefresh() {
+        dialog.dismiss();
     }
 }

@@ -25,7 +25,6 @@ class ActualizarCartasTask extends AsyncTask<Void, Void, Void> {
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
-
         Events.post("start-downloading-data");
     }
 
