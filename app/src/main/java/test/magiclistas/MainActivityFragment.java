@@ -9,6 +9,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -16,6 +17,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+
 import com.alexvasilkov.events.Events;
 
 import test.magiclistas.databinding.FragmentMainBinding;
@@ -76,10 +78,19 @@ public class MainActivityFragment extends Fragment implements LoaderManager.Load
 
         return view;
     }
+
     boolean esTablet() {
         return getResources().getBoolean(R.bool.tablet);
     }
 
+    @Events.Subscribe("card-selected")
+    private void cardselected(Carta card){
+        updateUi(card);
+    }
+
+
+    private void updateUi(Carta card) {
+        Log.d("MOVIE", card.toString());}
 
     //Creamos el inflate del menu
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
