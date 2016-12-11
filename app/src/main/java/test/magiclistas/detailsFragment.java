@@ -4,10 +4,12 @@ import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.alexvasilkov.events.Events;
 import com.bumptech.glide.Glide;
 
 import test.magiclistas.databinding.FragmentDetailsBinding;
@@ -20,6 +22,13 @@ public class detailsFragment extends Fragment {
     private FragmentDetailsBinding binding;
 
     public detailsFragment() {}
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        //conectamos el evento
+        Events.register(this);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -54,4 +63,11 @@ public class detailsFragment extends Fragment {
         }
         return view;
     }
+
+    //Creamos el evento
+    @Events.Subscribe("card-selected")
+    private void cartaSelecionada(Carta card){
+        Log.d("Carta", card.toString());
+    }
+
 }

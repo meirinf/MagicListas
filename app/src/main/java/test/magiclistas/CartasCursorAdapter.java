@@ -19,7 +19,7 @@ public class CartasCursorAdapter extends CupboardCursorAdapter<Carta> {
     public CartasCursorAdapter(Context context, Class<Carta> entityClass) {
         super(context, entityClass);
     }
-
+    //inflamos el adapter
     @Override
     public View newView(Context context, Carta model, ViewGroup parent) {
 
@@ -33,7 +33,7 @@ public class CartasCursorAdapter extends CupboardCursorAdapter<Carta> {
     public void bindView(View view, Context context, Carta model) {
 
         AdapterCartasBinding binding = DataBindingUtil.getBinding(view);
-
+        //pasamos la info del objeto al layaout
         binding.adapterNombre.setText("Nombre Carta: " + model.getNombre());
         binding.adapterTipo.setText("Tipo: " + model.getTipo());
         binding.adapterColor.setText("Color: " + model.getColor());

@@ -18,8 +18,9 @@ public class ApiCartas {
     private static String url = "https://api.magicthegathering.io/v1/cards?pageSize=100";
     private static ArrayList<Carta> carta = new ArrayList<>();
 
+    //Esta clase se encarga de bajar la información de la Api
     public static ArrayList<Carta> getCardsTypes(String rar, String color) {
-
+        //Aqui pasa los parametros de configuración rareza y color
         Uri builtUri = Uri.parse(url)
                 .buildUpon()
                 .appendQueryParameter("rarity", rar)
@@ -33,7 +34,7 @@ public class ApiCartas {
 
             JSONObject data = new JSONObject(JsonResponse);
             JSONArray jsonCartas = data.getJSONArray("cards");
-
+            //se cargan todos los parametros elejidos
             for (int i = 0; i <jsonCartas.length() ; i++) {
                 Carta card = new Carta();
                 JSONObject object = jsonCartas.getJSONObject(i);

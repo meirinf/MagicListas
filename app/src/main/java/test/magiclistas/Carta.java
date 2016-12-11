@@ -14,7 +14,7 @@ public class Carta implements Serializable {
     String imagen;
     String texto;
 
-    // private ArrayList<String> castList;
+
 
     public Carta(){            }
 

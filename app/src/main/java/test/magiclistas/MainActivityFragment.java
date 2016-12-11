@@ -42,7 +42,7 @@ public class MainActivityFragment extends Fragment implements LoaderManager.Load
 
     //Agregamos el menu en el fragment
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState) {
 
         FragmentMainBinding binding = DataBindingUtil.inflate(inflater,R.layout.fragment_main,container,false);
         View view = binding.getRoot();
@@ -60,17 +60,24 @@ public class MainActivityFragment extends Fragment implements LoaderManager.Load
         @Override
          public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
+            if (!esTablet()) {
                 Carta card = (Carta) adapterView.getItemAtPosition(i);
-
                 Intent intent = new Intent(getContext(), details.class);
                 intent.putExtra("card", card);
                 startActivity(intent);
+            }
+            else {
+                Events.create("card-selected").param(container).post();
+            }
             }
              });
 
         getLoaderManager().initLoader(0, null, this);
 
         return view;
+    }
+    boolean esTablet() {
+        return getResources().getBoolean(R.bool.tablet);
     }
 
 

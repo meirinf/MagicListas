@@ -22,12 +22,12 @@ public class CartasAdapter extends ArrayAdapter<Carta> {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
-        // Obtenim l'objecte en la possició corresponent
+        //Obtenemos el objeto Carta en la posicion seleccionada
         Carta carta = getItem(position);
 
         AdapterCartasBinding binding = null;
 
-        // Mirem a veure si la View s'està reusant, si no es així "inflem" la View
+        //Miramos si el view se esta usando si no lo cargamos
         if (convertView == null) {
             LayoutInflater inflater = LayoutInflater.from(getContext());
             binding = DataBindingUtil.inflate(inflater, R.layout.adapter_cartas,parent,false);
@@ -35,14 +35,15 @@ public class CartasAdapter extends ArrayAdapter<Carta> {
             binding = DataBindingUtil.getBinding(convertView);
         }
 
-        /*// Unim el codi en les Views del Layout
+        /*
         TextView nombreCarta = (TextView) convertView.findViewById(R.id.adapterNombre);
         TextView tipo = (TextView) convertView.findViewById(R.id.adapterTipo);
         TextView color = (TextView) convertView.findViewById(R.id.adapterColor);
         ImageView imagenCarta = (ImageView) convertView.findViewById(R.id.adapterCarta);
         */
 
-        // Fiquem les dades dels objectes (provinents del JSON) en el layout
+
+        //Metemos los dato de objeto que vienen del json en el layaout
 
         binding.adapterNombre.setText("Nombre Carta: "+carta.getNombre());
         binding.adapterTipo.setText("Tipo: "+carta.getTipo());
@@ -53,7 +54,7 @@ public class CartasAdapter extends ArrayAdapter<Carta> {
                 load(carta.getImagen()).
                 into(binding.adapterCarta);
 
-        // Retornem la View replena per a mostrarla
+        // devuelve la vista
         return binding.getRoot();
     }
 }

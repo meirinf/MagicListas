@@ -16,10 +16,12 @@ import java.util.ArrayList;
 class ActualizarCartasTask extends AsyncTask<Void, Void, Void> {
     private Context context;
 
+    //Actualiza la petición de cartas
     ActualizarCartasTask(Context context) {
         this.context = context;
     }
 
+    //devuelbe un menjase cuando se inicia
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
@@ -36,6 +38,7 @@ class ActualizarCartasTask extends AsyncTask<Void, Void, Void> {
         String rarity = preferences.getString("categoriaCarta", " ");
         String colors = preferences.getString("colorCarta", " ");
 
+        //Cargamos las cartas
         ArrayList cards;
         cards = ApiCartas.getCardsTypes(rarity, colors);
 
@@ -47,10 +50,10 @@ class ActualizarCartasTask extends AsyncTask<Void, Void, Void> {
         return null;
     }
 
+    //devuelbe un mensaje cuando se ha ejecutado
     @Override
     protected void onPostExecute(Void aVoid) {
         super.onPostExecute(aVoid);
-
         Events.post("finish-downloading-data");
     }
 }
